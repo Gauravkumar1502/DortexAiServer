@@ -10,6 +10,7 @@ const port = process.env.PORT || 3000;
 
 // Middleware to parse JSON requests
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 app.get('/', (req, res) => {
   res.send('Welcome to DortexAi API');
@@ -43,17 +44,14 @@ app.post('/send-email', (req, res) => {
     
     transporter.sendMail(mailOptions, (error, info) => {
         if (error) {
-            console.log(error);
+            console.error(error.message);
             return res.status(500).send(error.message);
         } else {
-            console.log('Email sent: ' + info.response);
+            console.log(`Email sent: ${info.response}`);
             return res.status(200).send('Email sent successfully');
-        //   handleSuccess(res, info.response, "Email sent successfully", statusCode.OK);
         }
     });
-    res.send('Email sent successfully');
 });
-
 
 // Start the server
 app.listen(port, () => {
