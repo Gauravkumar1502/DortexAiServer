@@ -15,6 +15,7 @@ app.use(express.urlencoded({ extended: true }));
 app.get('/', (req, res) => {
   res.send('Welcome to DortexAi API');
 });
+
 // send email
 app.post('/send-email', (req, res) => {
   const { name, email, subject, message } = req.body;
@@ -35,7 +36,7 @@ app.post('/send-email', (req, res) => {
         html: `Dear DortexAi Team,<br>
             <P>
                 ${message}
-            </P>
+            </P><br><br>
             <strong>Please respond to the user as soon as possible.</strong><br><br>
             Best Regards,<br>
             ${name}<br>
